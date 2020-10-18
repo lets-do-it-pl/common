@@ -2,12 +2,7 @@ name: Mail Sender - Build
 
 on: 
   workflow_dispatch:
-    inputs:
-      version:
-        description: Mail Sender Deploy
-        default: v1.0.0
-        required: true
-
+   
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
