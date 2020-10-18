@@ -2,7 +2,7 @@ name: Mail Sender - Build
 
 on: 
   push:
-    branches-ignore:
+    branches:
       - main
 
 jobs:
