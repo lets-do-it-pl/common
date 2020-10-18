@@ -2,11 +2,29 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.MailSender</RepositoryUrl>
+    <Authors>LetsDoIt .Net Team</Authors>
+    <Company>LetsDoIt</Company>
+    <Product />
+    <PackageProjectUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.MailSender</PackageProjectUrl>
+    <PackageTags>.Net Core 2 Standard Generic Repository, Mail, Mail Sender Repository</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.9.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
