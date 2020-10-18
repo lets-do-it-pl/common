@@ -6,7 +6,7 @@
     <RepositoryUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.MailSender</RepositoryUrl>
     <Authors>LetsDoIt .Net Team</Authors>
     <Company>LetsDoIt</Company>
-    <Product />
+    <Product>Lets Do It Mail Sender</Product>
     <PackageProjectUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.MailSender</PackageProjectUrl>
     <PackageTags>.Net Core 2 Standard Generic Repository, Mail, Mail Sender Repository</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
