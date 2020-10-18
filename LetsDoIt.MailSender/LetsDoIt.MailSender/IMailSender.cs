@@ -4,6 +4,8 @@ namespace LetsDoIt.MailSender
 {
     public interface IMailSender
     {
-        Task Send(string subject, string htmlContent, params string[] toEmails);
+        Task SendAsync(string subject, string htmlContent, params string[] toEmails);
+
+        void Send(string subject, string htmlContent, params string[] toEmails);
     }
 }

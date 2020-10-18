@@ -22,7 +22,7 @@ namespace LetsDoIt.MailSender
             _smtpOptions = smtpOptions.Value;
         }
 
-        public async Task Send(string subject, string htmlContent, params string[] toEmails)
+        public async Task SendAsync(string subject, string htmlContent, params string[] toEmails)
         {
             if (string.IsNullOrWhiteSpace(subject)) throw new ArgumentNullException(nameof(subject));
             if (string.IsNullOrWhiteSpace(htmlContent)) throw new ArgumentNullException(nameof(htmlContent));
@@ -39,6 +39,35 @@ namespace LetsDoIt.MailSender
                     smtp.Authenticate(_smtpOptions.Username, _smtpOptions.Password);
 
                     await smtp.SendAsync(emailDetails);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Mail can not be sent", ex);
+                }
+                finally
+                {
+                    smtp.Disconnect(true);
+                }
+            }
+        }
+
+        public void Send(string subject, string htmlContent, params string[] toEmails)
+        {
+            if (string.IsNullOrWhiteSpace(subject)) throw new ArgumentNullException(nameof(subject));
+            if (string.IsNullOrWhiteSpace(htmlContent)) throw new ArgumentNullException(nameof(htmlContent));
+            if (toEmails == null || toEmails.Length == 0) throw new ArgumentNullException(nameof(toEmails));
+
+            var emailDetails = GetMailMessage(toEmails, subject, htmlContent);
+
+            using (var smtp = new SmtpClient())
+            {
+                try
+                {
+                    smtp.Connect(_smtpOptions.Host, _smtpOptions.Port, SecureSocketOptions.StartTls);
+
+                    smtp.Authenticate(_smtpOptions.Username, _smtpOptions.Password);
+
+                    smtp.Send(emailDetails);
                 }
                 catch (Exception ex)
                 {
