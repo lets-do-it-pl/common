@@ -2,7 +2,10 @@
 {
     public class SmtpOptions
     {
-        public const string Smtp = "Smtp";
+        /// <summary>
+        /// Smtp Section Name is "Smtp"
+        /// </summary>
+        public const string SmtpSectionName = "Smtp";
 
         public string Host { get; set; }
 
