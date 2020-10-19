@@ -1,10 +1,7 @@
 name: Mail Sender - Deploy to nuget.org
 
 on: 
-  workflow_dispatch:
-    inputs: 
-      version:
-       required: true      
+  workflow_dispatch:      
    
 jobs:
   build-and-test:
@@ -22,7 +19,7 @@ jobs:
       working-directory: ./LetsDoIt.MailSender
 
     - name: Generate nuget package
-      run: dotnet pack --configuration Release -o nupkg -version ${{ github.event.inputs.version }}
+      run: dotnet pack --configuration Release -o nupkg
       working-directory: ./LetsDoIt.MailSender
 
     - name: Publish nuget package
