@@ -10,8 +10,9 @@
     <PackageProjectUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.MailSender</PackageProjectUrl>
     <PackageTags>.Net Core 2 Standard Generic Repository, Mail, Mail Sender Repository</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
