@@ -1,3 +1,4 @@
+![alt text](https://github.com/lets-do-it-pl/common/blob/main/LetsDoIt.MailSender/src/LetsDoIt.MailSender/icon.png)
 # Let's Do IT - Mail Sender
 
 ![Mail Sender - Build](https://github.com/lets-do-it-pl/common/workflows/Mail%20Sender%20-%20Build/badge.svg?branch=main)
