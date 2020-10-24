@@ -16,14 +16,14 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release
-      working-directory: ./LetsDoIt.MailSender
+      working-directory: ./LetsDoIt.MailSender/src
 
     - name: Generate nuget package
       run: dotnet pack --configuration Release -o nupkg
-      working-directory: ./LetsDoIt.MailSender
+      working-directory: ./LetsDoIt.MailSender/src
 
     - name: Publish nuget package
       run: find . -name *.nupkg -type f -print0 | xargs -0 -I pkg dotnet nuget push pkg -k $nuget_api_key -s "https://api.nuget.org/v3/index.json" --skip-duplicate
       env:
         nuget_api_key: ${{ secrets.LETS_DO_IT_NUGET_API_KEY }}
-      working-directory: ./LetsDoIt.MailSender/nupkg
+      working-directory: ./LetsDoIt.MailSender/src/nupkg
