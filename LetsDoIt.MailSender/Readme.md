@@ -5,19 +5,17 @@
 ![Mail Sender - Deploy to nuget.org](https://github.com/lets-do-it-pl/common/workflows/Mail%20Sender%20-%20Deploy%20to%20nuget.org/badge.svg)
 
 ## Configuration
-### 1. Add Mail server and mail user information to appsettings.json
+### 1. Add Mail server and mail user information to `appsettings.json`
 
 ```json
 {
-  ...
  "Smtp": {
     "Host": "<HOST_NAME>",
-    "Port": <PORT_NAME>,
+    "Port": "<PORT_NUMBER>",
     "Email": "<EMAIL_ADDRESS>",
     "Username": "<USERNAME>",
     "Password": "<PASSWORD>"
   }
-  ...
 }
 ```
 
