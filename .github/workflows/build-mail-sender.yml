@@ -18,4 +18,4 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release
-      working-directory: ./LetsDoIt.MailSender
+      working-directory: ./LetsDoIt.MailSender/src
