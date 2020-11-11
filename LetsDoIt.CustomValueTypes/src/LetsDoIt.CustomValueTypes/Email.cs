@@ -12,11 +12,6 @@ namespace LetsDoIt.CustomValueTypes
 
         public Email(string value)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value), "Email can not be null!");
-            }
-
             if (!IsValid(value))
             {
                 throw new ArgumentException("Invalid email address.", value);
