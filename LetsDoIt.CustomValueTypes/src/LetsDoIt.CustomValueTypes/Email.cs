@@ -64,7 +64,7 @@ namespace LetsDoIt.CustomValueTypes
             return new Email(candidate);
         }
 
-        public static implicit operator string(Email email)
+        public static explicit operator string(Email email)
         {
             return email._value;
         }
