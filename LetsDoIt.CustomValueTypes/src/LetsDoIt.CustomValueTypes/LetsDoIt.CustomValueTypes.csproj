@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.CustomValueTypes</RepositoryUrl>
+    <Authors>LetsDoIt .Net Team</Authors>
+    <Company>LetsDoIt</Company>
+    <Product>Lets Do It Custom Value Types </Product>
+    <PackageProjectUrl>https://github.com/lets-do-it-pl/common/tree/main/LetsDoIt.CustomValueTypes</PackageProjectUrl>
+    <PackageTags>.Net Core 2 Standard Generic Repository, Custom Value Types, Json Type Converter</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>  
+
+</Project>
