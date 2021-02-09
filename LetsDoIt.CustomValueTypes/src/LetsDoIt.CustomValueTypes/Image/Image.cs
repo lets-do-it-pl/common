@@ -1,77 +1,72 @@
 ﻿using System;
 using System.Net.Mail;
-using System.Text.Json.Serialization;
 
-namespace LetsDoIt.CustomValueTypes
+namespace LetsDoIt.CustomValueTypes.Image
 {
-
-    [JsonConverter(typeof(EmailJsonConverter))]
-    public readonly struct Email
+    public readonly struct Image
     {
         private readonly string _value;
 
-        public Email(string value)
+        public Image(string value)
         {
             if (!IsValid(value))
             {
-                throw new ArgumentException("Invalid email address.", value);
+                throw new ArgumentException("Invalid image.", value);
             }
 
             _value = value.ToLowerInvariant();
         }
 
-        public static bool IsValid(string email)
+        public static bool IsValid(string image)
         {
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(image))
             {
                 return false;
             }
 
             try
             {
-                var mailAddress = new MailAddress(email);
-
-                return string.Equals(mailAddress.Address, email, StringComparison.InvariantCultureIgnoreCase);
+                var convertedImage = Convert.FromBase64String(image);
+                return true;
             }
             catch
             {
                 return false;
             }
-
         }
 
-        public static bool TryParse(string candidate, out Email? email)
+        public static bool TryParse(string candidate, out Image? image)
         {
-            email = null;
+            image = null;
 
             if (string.IsNullOrWhiteSpace(candidate))
             {
                 return false;
             }
 
-            email = new Email(candidate);
+            image = new Image(candidate);
 
             return true;
         }
 
-        public static Email Parse(string candidate)
+        public static Image Parse(string candidate)
         {
             if (string.IsNullOrWhiteSpace(candidate))
             {
                 throw new ArgumentException("Email can not be empty!");
             }
 
-            return new Email(candidate);
+            return new Image(candidate);
         }
 
-        public static explicit operator string(Email email)
+        public static explicit operator string(Image image)
         {
-            return email._value;
+            return image._value;
         }
 
-        public static implicit operator Email(string email)
+        public static implicit operator Image(string image)
         {
-            return new Email(email);
+            return new Image(image);
         }
 
         public override string ToString()
@@ -81,9 +76,9 @@ namespace LetsDoIt.CustomValueTypes
 
         public override bool Equals(object obj)
         {
-            if (obj is Email objEmail)
+            if (obj is Image objImage)
             {
-                return string.Equals(this._value, objEmail._value, StringComparison.InvariantCultureIgnoreCase);
+                return string.Equals(this._value, objImage._value, StringComparison.InvariantCultureIgnoreCase);
             }
 
             return false;

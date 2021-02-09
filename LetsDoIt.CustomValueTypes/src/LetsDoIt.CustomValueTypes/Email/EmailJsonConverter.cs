@@ -2,8 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-
-namespace LetsDoIt.CustomValueTypes
+namespace LetsDoIt.CustomValueTypes.Email
 {
     public class EmailJsonConverter :JsonConverter<Email>
     {
