@@ -1,9 +1,8 @@
-using System;
-using Xunit;
+﻿using Xunit;
 
 namespace LetsDoIt.CustomValueTypes.Tests
 {
-    public class UnitTest1
+    public class ImageTests
     {
         [Fact]
         public void Test1()

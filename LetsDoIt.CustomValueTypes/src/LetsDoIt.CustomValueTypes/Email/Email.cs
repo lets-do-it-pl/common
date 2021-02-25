@@ -20,26 +20,6 @@ namespace LetsDoIt.CustomValueTypes.Email
             _value = value.ToLowerInvariant();
         }
 
-        private static bool IsValid(string email)
-        {
-            if (string.IsNullOrEmpty(email))
-            {
-                return false;
-            }
-
-            try
-            {
-                var mailAddress = new MailAddress(email);
-
-                return string.Equals(mailAddress.Address, email, StringComparison.InvariantCultureIgnoreCase);
-            }
-            catch
-            {
-                return false;
-            }
-
-        }
-
         public static bool TryParse(string candidate, out Email? email)
         {
             email = null;
@@ -92,6 +72,26 @@ namespace LetsDoIt.CustomValueTypes.Email
         public override int GetHashCode()
         {
             return _value.GetHashCode();
+        }
+
+        private static bool IsValid(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return false;
+            }
+
+            try
+            {
+                var mailAddress = new MailAddress(email);
+
+                return string.Equals(mailAddress.Address, email, StringComparison.InvariantCultureIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }
