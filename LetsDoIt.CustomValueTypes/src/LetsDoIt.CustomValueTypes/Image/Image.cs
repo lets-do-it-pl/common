@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Net.Mail;
+using System.IO;
+using System.Drawing;
 
 namespace LetsDoIt.CustomValueTypes.Image
 {
@@ -7,13 +8,20 @@ namespace LetsDoIt.CustomValueTypes.Image
     {
         private readonly string _value;
 
+        private static byte[] _convertedImage;
+
+        public string SmallImage => ConvertToSmallImage();
+
+        public string MediumImage => throw new NotImplementedException();
+
+        public string LargeImage => throw new NotImplementedException();
+
         public Image(string value)
         {
             if (!IsValid(value))
             {
-                throw new ArgumentException("Invalid image.", value);
+                throw new ArgumentException("Invalid image. Too big or wrong format.", value);
             }
-
             _value = value.ToLowerInvariant();
         }
 
@@ -27,6 +35,14 @@ namespace LetsDoIt.CustomValueTypes.Image
             try
             {
                 var convertedImage = Convert.FromBase64String(image);
+
+                if (convertedImage.LongLength > 1024)
+                {
+                    return false;
+                }
+
+                _convertedImage = convertedImage;
+
                 return true;
             }
             catch
@@ -53,7 +69,7 @@ namespace LetsDoIt.CustomValueTypes.Image
         {
             if (string.IsNullOrWhiteSpace(candidate))
             {
-                throw new ArgumentException("Email can not be empty!");
+                throw new ArgumentException("Image can not be empty!");
             }
 
             return new Image(candidate);
@@ -87,6 +103,12 @@ namespace LetsDoIt.CustomValueTypes.Image
         public override int GetHashCode()
         {
             return _value.GetHashCode();
+        }
+
+        private string ConvertToSmallImage()
+        {
+
+            return "";
         }
     }
 }
