@@ -1,57 +1,57 @@
 ﻿using System;
-using System.IO;
-using System.Drawing;
+using System.Text.Json.Serialization;
 
 namespace LetsDoIt.CustomValueTypes.Image
 {
+
+    [JsonConverter(typeof(ImageJsonConverter))]
     public readonly struct Image
     {
         private readonly string _value;
 
-        private static byte[] _convertedImage;
+        private readonly string _customSizeImage;
 
-        public string SmallImage => ConvertToSmallImage();
+        private readonly byte[] _convertedImage;
 
-        public string MediumImage => throw new NotImplementedException();
+        private const long DefaultMaxFileSizeAsBytes = 2 * 1000 * 1000;
 
-        public string LargeImage => throw new NotImplementedException();
+        public string SmallImage => ImageHelper.Resize(_convertedImage, 256, 256);
 
-        public Image(string value)
+        public string MediumImage => ImageHelper.Resize(_convertedImage, 512, 512);
+
+        public string LargeImage => ImageHelper.Resize(_convertedImage, 1080, 1080);
+
+        public string CustomSizeImage => _customSizeImage;
+
+        public string OriginalValue => _value;
+
+        public Image(string value, long maxFileSizeAsBytes = DefaultMaxFileSizeAsBytes) : this()
         {
-            if (!IsValid(value))
+            if (!IsValid(value, maxFileSizeAsBytes))
             {
                 throw new ArgumentException("Invalid image. Too big or wrong format.", value);
             }
-            _value = value.ToLowerInvariant();
-        }
 
-        public static bool IsValid(string image)
+            _convertedImage = Convert.FromBase64String(value);
+
+            _value = value;
+        } 
+
+        public Image(string value, int width, int height, long maxFileSizeAsBytes = DefaultMaxFileSizeAsBytes) : this()
         {
-            if (string.IsNullOrEmpty(image))
+            if (!IsValid(value, maxFileSizeAsBytes))
             {
-                return false;
+                throw new ArgumentException("Invalid image. Too big or wrong format.", value);
             }
 
-            try
-            {
-                var convertedImage = Convert.FromBase64String(image);
+            _value = value;
 
-                if (convertedImage.LongLength > 1024)
-                {
-                    return false;
-                }
+            _convertedImage = Convert.FromBase64String(value);
 
-                _convertedImage = convertedImage;
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            _customSizeImage = ImageHelper.Resize(_convertedImage, width, height);
         }
 
-        public static bool TryParse(string candidate, out Image? image)
+        public static bool TryParse(string candidate, out Image image)
         {
             image = null;
 
@@ -94,7 +94,7 @@ namespace LetsDoIt.CustomValueTypes.Image
         {
             if (obj is Image objImage)
             {
-                return string.Equals(this._value, objImage._value, StringComparison.InvariantCultureIgnoreCase);
+                return string.Equals(this._value, objImage._value);
             }
 
             return false;
@@ -105,10 +105,28 @@ namespace LetsDoIt.CustomValueTypes.Image
             return _value.GetHashCode();
         }
 
-        private string ConvertToSmallImage()
+        private bool IsValid(string image, long maxFileSizeAsBytes)
         {
+            if (string.IsNullOrEmpty(image))
+            {
+                return false;
+            }
 
-            return "";
+            try
+            {
+                var convertedImage = Convert.FromBase64String(image);
+
+                if (convertedImage.LongLength > DefaultMaxFileSizeAsBytes)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

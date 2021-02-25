@@ -20,7 +20,7 @@ namespace LetsDoIt.CustomValueTypes.Email
             _value = value.ToLowerInvariant();
         }
 
-        public static bool IsValid(string email)
+        private static bool IsValid(string email)
         {
             if (string.IsNullOrEmpty(email))
             {

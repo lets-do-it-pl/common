@@ -6,7 +6,7 @@ namespace LetsDoIt.CustomValueTypes.Image
 {
     public static class ImageHelper
     {
-        static string Resize(byte[] image, int width, int height)
+        public static string Resize(byte[] image, int width, int height)
         {
             using var ms = new MemoryStream(image);
             var convertedImage = System.Drawing.Image.FromStream(ms);
