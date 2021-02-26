@@ -9,19 +9,17 @@ namespace LetsDoIt.CustomValueTypes.Image
     {
         private readonly string _value;
 
-        private readonly string _customSizeImage;
-
         private readonly byte[] _convertedImage;
 
         private const long DefaultMaxFileSizeAsBytes = 2 * 1000 * 1000;
 
-        public string SmallImage => _convertedImage.Resize(256, 256);
+        public string SmallSize => _convertedImage.Resize(256, 256);
 
-        public string MediumImage => _convertedImage.Resize(512, 512);
+        public string MediumSize => _convertedImage.Resize(512, 512);
 
-        public string LargeImage => _convertedImage.Resize(1080, 1080);
+        public string LargeSize => _convertedImage.Resize(1080, 1080);
 
-        public string CustomSizeImage => _customSizeImage;
+        public string CustomSize { get; }
 
         public string OriginalValue => _value;
 
@@ -48,19 +46,26 @@ namespace LetsDoIt.CustomValueTypes.Image
 
             _convertedImage = Convert.FromBase64String(value);
 
-            _customSizeImage = _convertedImage.Resize(width, height);
+            CustomSize = _convertedImage.Resize(width, height);
         }
 
         public static bool TryParse(string candidate, out Image image)
         {
-            image = null;
+            image = default;
 
-            if (string.IsNullOrWhiteSpace(candidate))
+            try
+            {
+                if (string.IsNullOrWhiteSpace(candidate))
+                {
+                    return false;
+                }
+
+                image = new Image(candidate);
+            }
+            catch
             {
                 return false;
             }
-
-            image = new Image(candidate);
 
             return true;
         }

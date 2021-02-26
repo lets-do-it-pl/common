@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace LetsDoIt.CustomValueTypes.Image
@@ -24,7 +25,7 @@ namespace LetsDoIt.CustomValueTypes.Image
             graphic.DrawImage(convertedImage, 0, 0, finalWidth, finalHeight);
 
             using var mStream = new MemoryStream();
-            bmp.Save(mStream, bmp.RawFormat);
+            bmp.Save(mStream, ImageFormat.Bmp);
 
             var finale= mStream.ToArray();
 
