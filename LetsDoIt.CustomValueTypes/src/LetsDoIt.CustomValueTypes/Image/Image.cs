@@ -92,12 +92,12 @@ namespace LetsDoIt.CustomValueTypes.Image
 
         public override bool Equals(object obj)
         {
-            if (obj is Image objImage)
+            return obj switch
             {
-                return string.Equals(this._value, objImage._value);
-            }
-
-            return false;
+                Image objImage => string.Equals(this._value, objImage._value),
+                string objString => string.Equals(this._value, objString),
+                _ => false
+            };
         }
 
         public override int GetHashCode()

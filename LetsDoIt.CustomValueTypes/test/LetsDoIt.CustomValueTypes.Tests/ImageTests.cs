@@ -8,6 +8,8 @@ namespace LetsDoIt.CustomValueTypes.Tests
 
     public class ImageTests
     {
+        private const string ValidBase64String = "R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==";
+
         [Theory]
         [InlineData(null)]
         [InlineData("")]
@@ -20,6 +22,14 @@ namespace LetsDoIt.CustomValueTypes.Tests
             test.Should().Throw<ArgumentException>();
         }
 
+        [Fact]
+        public void Email_WhenValidValueGiven_ShouldBeEqualToItsStringVersion()
+        {
+            string imageValue = ValidBase64String;
 
+            Image image = imageValue;
+
+            image.Should().Be(imageValue);
+        }
     }
 }
