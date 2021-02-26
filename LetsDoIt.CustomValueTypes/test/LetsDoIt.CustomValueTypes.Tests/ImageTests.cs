@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using Xunit;
 
 namespace LetsDoIt.CustomValueTypes.Tests
@@ -14,9 +15,9 @@ namespace LetsDoIt.CustomValueTypes.Tests
         [InlineData("bad.bad")]
         public void Image_WhenIsNullOrWhiteSpaceOrImageIsInvalid_ShouldThrowArgumentException(string image)
         {
-            void Test() => new Image(image);
+            Action test = () => new Image(image);
 
-            Assert.ThrowsAny<ArgumentException>(Test);
+            test.Should().Throw<ArgumentException>();
         }
 
 

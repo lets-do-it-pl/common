@@ -38,7 +38,7 @@ namespace LetsDoIt.CustomValueTypes.Tests
 
             Email email = emailValue;
 
-            Assert.Equal(emailValue.ToLower(), email.ToString());
+            email.Should().Be(emailValue);
         } 
         
         [Fact]
@@ -48,7 +48,7 @@ namespace LetsDoIt.CustomValueTypes.Tests
 
             Email email = emailValue;
 
-            Assert.True(email.Equals(email));
+            email.Equals(emailValue).Should().BeTrue();
         } 
 
         [Theory]
@@ -58,9 +58,9 @@ namespace LetsDoIt.CustomValueTypes.Tests
         [InlineData("bad.bad")]
         public void EmailParse_WhenIsNullOrWhiteSpaceOrEmailIsInvalid_ShouldThrowArgumentException(string email)
         {
-            void Test() => Email.Parse(email);
+            Action test = () => Email.Parse(email);
 
-            Assert.ThrowsAny<ArgumentException>(Test);
+            test.Should().Throw<ArgumentException>();
         }   
         
         [Theory]
@@ -70,9 +70,7 @@ namespace LetsDoIt.CustomValueTypes.Tests
         [InlineData("bad.bad")]
         public void EmailTryParse_WhenIsNullOrWhiteSpaceOrEmailIsInvalid_ShouldReturnFalse(string canditate)
         {
-            var result = Email.TryParse(canditate, out Email email);
-
-            Assert.False(result);
+            Email.TryParse(canditate, out Email email).Should().BeFalse();
         } 
     }
 }
