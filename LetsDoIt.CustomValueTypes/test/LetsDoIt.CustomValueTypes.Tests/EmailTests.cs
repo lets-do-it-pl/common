@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions;
 using Xunit;
 
 namespace LetsDoIt.CustomValueTypes.Tests
@@ -16,7 +17,7 @@ namespace LetsDoIt.CustomValueTypes.Tests
         public void Email_WhenIsNullOrWhiteSpaceOrEmailIsInvalid_ShouldThrowArgumentException(string email)
         {
            void Test() => new Email(email); 
-
+           
            Assert.ThrowsAny<ArgumentException>(Test);
         }
 
@@ -27,7 +28,7 @@ namespace LetsDoIt.CustomValueTypes.Tests
 
             Email email = emailValue;
 
-            Assert.Equal(emailValue, email.ToString());
+            email.Should().Be(emailValue);
         }
         
         [Fact]

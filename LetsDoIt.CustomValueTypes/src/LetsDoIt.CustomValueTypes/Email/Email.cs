@@ -63,12 +63,13 @@ namespace LetsDoIt.CustomValueTypes.Email
 
         public override bool Equals(object obj)
         {
-            if (obj is Email objEmail)
+            return obj switch
             {
-                return string.Equals(this._value, objEmail._value, StringComparison.InvariantCultureIgnoreCase);
-            }
-
-            return false;
+                Email objEmail => string.Equals(this._value, objEmail._value,
+                    StringComparison.InvariantCultureIgnoreCase),
+                string objString => string.Equals(this._value, objString, StringComparison.InvariantCultureIgnoreCase),
+                _ => false
+            };
         }
 
         public override int GetHashCode()
