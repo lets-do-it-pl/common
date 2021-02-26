@@ -11,20 +11,67 @@ namespace LetsDoIt.CustomValueTypes.Tests
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public void Email_WhenIsNullOrWhiteSpace_ShouldThrowArgumentException(string email)
+        [InlineData("bad")]
+        [InlineData("bad.bad")]
+        public void Email_WhenIsNullOrWhiteSpaceOrEmailIsInvalid_ShouldThrowArgumentException(string email)
         {
            void Test() => new Email(email); 
 
            Assert.ThrowsAny<ArgumentException>(Test);
+        }
+
+        [Fact]
+        public void Email_WhenValidValueGiven_ShouldBeEqualToItsStringVersion()
+        {
+            string emailValue = "good@good.good";
+
+            Email email = emailValue;
+
+            Assert.Equal(emailValue, email.ToString());
+        }
+        
+        [Fact]
+        public void Email_ShouldBeCaseInsensitive()
+        {
+            string emailValue = "GOOD@GOOD.GOOD";
+
+            Email email = emailValue;
+
+            Assert.Equal(emailValue.ToLower(), email.ToString());
         } 
         
-        //[Fact]
-        //public void Email_WhenPropsAccessedWithoutNew_ShouldThrowArgumentException( )
-        //{
+        [Fact]
+        public void EmailEquals_ShouldCompareValuesAndShouldBeCaseInsensitive()
+        {
+            string emailValue = "GOOD@GOOD.GOOD";
 
-        //    Email email = "asd@ada.com";
+            Email email = emailValue;
 
-        //    Assert.Equal("",email.ToString());
-        //}
+            Assert.True(email.Equals(email));
+        } 
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bad")]
+        [InlineData("bad.bad")]
+        public void EmailParse_WhenIsNullOrWhiteSpaceOrEmailIsInvalid_ShouldThrowArgumentException(string email)
+        {
+            void Test() => Email.Parse(email);
+
+            Assert.ThrowsAny<ArgumentException>(Test);
+        }   
+        
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bad")]
+        [InlineData("bad.bad")]
+        public void EmailTryParse_WhenIsNullOrWhiteSpaceOrEmailIsInvalid_ShouldReturnFalse(string canditate)
+        {
+            var result = Email.TryParse(canditate, out Email email);
+
+            Assert.False(result);
+        } 
     }
 }

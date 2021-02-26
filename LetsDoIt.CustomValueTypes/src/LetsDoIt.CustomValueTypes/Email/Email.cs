@@ -20,27 +20,29 @@ namespace LetsDoIt.CustomValueTypes.Email
             _value = value.ToLowerInvariant();
         }
 
-        public static bool TryParse(string candidate, out Email? email)
+        public static bool TryParse(string candidate, out Email email)
         {
-            email = null;
+            email = default;
 
-            if (string.IsNullOrWhiteSpace(candidate))
+            try
+            {
+                if (string.IsNullOrWhiteSpace(candidate))
+                {
+                    return false;
+                }
+
+                email = new Email(candidate);
+            }
+            catch
             {
                 return false;
             }
-
-            email = new Email(candidate);
 
             return true;
         }
 
         public static Email Parse(string candidate)
         {
-            if (string.IsNullOrWhiteSpace(candidate))
-            {
-                throw new ArgumentException("Email can not be empty!");
-            }
-
             return new Email(candidate);
         }
 
@@ -76,7 +78,7 @@ namespace LetsDoIt.CustomValueTypes.Email
 
         private static bool IsValid(string email)
         {
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return false;
             }

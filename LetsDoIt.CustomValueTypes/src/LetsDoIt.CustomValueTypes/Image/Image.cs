@@ -116,7 +116,7 @@ namespace LetsDoIt.CustomValueTypes.Image
             {
                 var convertedImage = Convert.FromBase64String(image);
 
-                if (convertedImage.LongLength > DefaultMaxFileSizeAsBytes)
+                if (convertedImage.LongLength > maxFileSizeAsBytes)
                 {
                     return false;
                 }
