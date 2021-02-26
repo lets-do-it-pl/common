@@ -15,11 +15,11 @@ namespace LetsDoIt.CustomValueTypes.Image
 
         private const long DefaultMaxFileSizeAsBytes = 2 * 1000 * 1000;
 
-        public string SmallImage => ImageHelper.Resize(_convertedImage, 256, 256);
+        public string SmallImage => _convertedImage.Resize(256, 256);
 
-        public string MediumImage => ImageHelper.Resize(_convertedImage, 512, 512);
+        public string MediumImage => _convertedImage.Resize(512, 512);
 
-        public string LargeImage => ImageHelper.Resize(_convertedImage, 1080, 1080);
+        public string LargeImage => _convertedImage.Resize(1080, 1080);
 
         public string CustomSizeImage => _customSizeImage;
 
@@ -48,7 +48,7 @@ namespace LetsDoIt.CustomValueTypes.Image
 
             _convertedImage = Convert.FromBase64String(value);
 
-            _customSizeImage = ImageHelper.Resize(_convertedImage, width, height);
+            _customSizeImage = _convertedImage.Resize(width, height);
         }
 
         public static bool TryParse(string candidate, out Image image)
