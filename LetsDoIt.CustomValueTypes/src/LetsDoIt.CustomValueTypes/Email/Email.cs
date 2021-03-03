@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using System.Text.Json.Serialization;
 
-namespace LetsDoIt.CustomValueTypes
+namespace LetsDoIt.CustomValueTypes.Email
 {
 
     [JsonConverter(typeof(EmailJsonConverter))]
@@ -20,47 +20,29 @@ namespace LetsDoIt.CustomValueTypes
             _value = value.ToLowerInvariant();
         }
 
-        public static bool IsValid(string email)
+        public static bool TryParse(string candidate, out Email email)
         {
-            if (string.IsNullOrEmpty(email))
-            {
-                return false;
-            }
+            email = default;
 
             try
             {
-                var mailAddress = new MailAddress(email);
+                if (string.IsNullOrWhiteSpace(candidate))
+                {
+                    return false;
+                }
 
-                return string.Equals(mailAddress.Address, email, StringComparison.InvariantCultureIgnoreCase);
+                email = new Email(candidate);
             }
             catch
             {
                 return false;
             }
 
-        }
-
-        public static bool TryParse(string candidate, out Email? email)
-        {
-            email = null;
-
-            if (string.IsNullOrWhiteSpace(candidate))
-            {
-                return false;
-            }
-
-            email = new Email(candidate);
-
             return true;
         }
 
         public static Email Parse(string candidate)
         {
-            if (string.IsNullOrWhiteSpace(candidate))
-            {
-                throw new ArgumentException("Email can not be empty!");
-            }
-
             return new Email(candidate);
         }
 
@@ -81,17 +63,38 @@ namespace LetsDoIt.CustomValueTypes
 
         public override bool Equals(object obj)
         {
-            if (obj is Email objEmail)
+            return obj switch
             {
-                return string.Equals(this._value, objEmail._value, StringComparison.InvariantCultureIgnoreCase);
-            }
-
-            return false;
+                Email objEmail => string.Equals(this._value, objEmail._value,
+                    StringComparison.InvariantCultureIgnoreCase),
+                string objString => string.Equals(this._value, objString, StringComparison.InvariantCultureIgnoreCase),
+                _ => false
+            };
         }
 
         public override int GetHashCode()
         {
             return _value.GetHashCode();
+        }
+
+        private static bool IsValid(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
+            try
+            {
+                var mailAddress = new MailAddress(email);
+
+                return string.Equals(mailAddress.Address, email, StringComparison.InvariantCultureIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }
